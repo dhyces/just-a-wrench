@@ -2,6 +2,7 @@ package dhyces.justawrench;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -21,15 +22,13 @@ public class JustAWrench {
     public static final Logger LOGGER = LogManager.getLogger(JustAWrench.class);
 
     public static final TagKey<Block> WRENCHABLE = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(MODID, "wrenchable"));
+    public static final TagKey<Item> REPAIRS_WRENCH = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "repairs_wrench"));
 
     public static final ToolAction WRENCH = ToolAction.get("justawrench:wrench");
-
-    private static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(Registry.ITEM_REGISTRY, MODID);
 
     public JustAWrench() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ITEM_REGISTER.register(modBus);
-        ITEM_REGISTER.register("wrench", () -> new WrenchItem(new Item.Properties().durability(300).tab(CreativeModeTab.TAB_TOOLS)));
+        Registers.register(modBus);
     }
 }
