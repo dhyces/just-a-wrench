@@ -1,7 +1,8 @@
 {
   "item.justawrench.wrench": {
     "sounds": [
-      "justawrench:wrench_1"
+      "justawrench:wrench_1",
+      "justawrench:wrench_2"
     ],
     "subtitle": "subtitles.justawrench.wrench"
   }
