@@ -1,6 +1,7 @@
 plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 	id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
 
 version = project.mod_version
@@ -19,6 +20,9 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 justawrench {
@@ -63,12 +67,23 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.19.2-43.2.4'
 
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    implementation fg.deobf("curse.maven:moonlight-499980:4393346")
+    implementation fg.deobf("curse.maven:carpeted-720848:4364928")
 }
 
 jar {
