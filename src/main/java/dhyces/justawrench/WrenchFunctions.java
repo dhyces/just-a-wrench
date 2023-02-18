@@ -41,6 +41,12 @@ public class WrenchFunctions {
             }).build()
     );
 
+    /**
+     * Use this method to register a new function to your custom block class
+     * @param blockClass
+     * @param function
+     * @return Whether the map already contains the class and failed
+     */
     public static boolean register(Class<? extends Block> blockClass, WrenchFunction function) {
         if (MUTABLE_API_MAP.containsKey(blockClass)) {
             return false;
@@ -147,6 +153,13 @@ public class WrenchFunctions {
     };
 
     public interface WrenchFunction {
+        /**
+         *
+         * @param context Context from the useOn method
+         * @param currentState
+         * @param mutableFlags This stores a default flag, Block.UPDATE_ALL. Useful if you require different flags
+         * @return The new BlockState to place. If it's the same as before, does nothing
+         */
         @Nonnull
         BlockState wrench(UseOnContext context, BlockState currentState, AtomicInteger mutableFlags);
     }
