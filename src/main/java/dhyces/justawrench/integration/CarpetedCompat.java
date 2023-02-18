@@ -12,7 +12,6 @@ import java.util.Optional;
 
 public class CarpetedCompat {
     public static void addCompat() {
-        // TODO: STILL BROKEN
         WrenchFunctions.register(CarpetStairBlock.class, (context, currentState, mutableFlags) -> {
             Optional<CarpetedBlockTile> beOptional = context.getLevel().getBlockEntity(context.getClickedPos(), Carpeted.CARPET_STAIRS_TILE.get());
             if (beOptional.isPresent()) {
