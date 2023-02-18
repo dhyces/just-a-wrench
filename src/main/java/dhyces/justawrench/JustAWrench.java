@@ -1,5 +1,7 @@
 package dhyces.justawrench;
 
+import dhyces.justawrench.integration.CarpetedCompat;
+import dhyces.justawrench.integration.Compats;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -7,7 +9,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,11 +24,20 @@ public class JustAWrench {
     public static final TagKey<Block> WRENCHABLE = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(MODID, "wrenchable"));
     public static final TagKey<Item> REPAIRS_WRENCH = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(MODID, "repairs_wrench"));
 
-    public static final ToolAction WRENCH = ToolAction.get("justawrench:wrench");
+    public static final ToolAction WRENCH = ToolAction.get("wrench");
 
     public JustAWrench() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         Registers.register(modBus);
+        modBus.addListener(this::onCommonSetup);
+    }
+
+    private void onCommonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            if (Compats.hasCarpeted()) {
+                CarpetedCompat.addCompat();
+            }
+        });
     }
 }
