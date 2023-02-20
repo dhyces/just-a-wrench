@@ -1,12 +1,6 @@
 package dhyces.justawrench;
 
-import com.google.common.base.Suppliers;
-import com.google.common.collect.ImmutableMap;
-import dhyces.justawrench.integration.CarpetedCompat;
-import dhyces.justawrench.integration.Compats;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -16,23 +10,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.ChestType;
-import net.minecraft.world.level.block.state.properties.RailShape;
-import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.fml.ModList;
 
-import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 
 public class WrenchItem extends Item {
 
@@ -51,6 +34,7 @@ public class WrenchItem extends Item {
             if (eventModifiedState != null && eventModifiedState != state) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, eventModifiedState, Block.UPDATE_ALL);
+                    damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
                 }
                 return InteractionResult.sidedSuccess(level.isClientSide);
             }
@@ -61,27 +45,32 @@ public class WrenchItem extends Item {
                     BlockState wrenchedState = function.wrench(pContext, state, flags);
                     if (wrenchedState != state) {
                         level.setBlock(pos, wrenchedState, flags.get());
+                        damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
                     }
                 }
                 level.playSound(null, pos, Registers.WRENCH_SOUND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             } else if (state.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.cycle(BlockStateProperties.HORIZONTAL_FACING), Block.UPDATE_ALL);
+                    damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
                 }
                 level.playSound(null, pos, Registers.WRENCH_SOUND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             } else if (state.hasProperty(BlockStateProperties.FACING)) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.cycle(BlockStateProperties.FACING), Block.UPDATE_ALL);
+                    damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
                 }
                 level.playSound(null, pos, Registers.WRENCH_SOUND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             } else if (state.hasProperty(BlockStateProperties.ROTATION_16)) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.cycle(BlockStateProperties.ROTATION_16), Block.UPDATE_ALL);
+                    damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
                 }
                 level.playSound(null, pos, Registers.WRENCH_SOUND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             } else if (state.hasProperty(BlockStateProperties.AXIS)) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.cycle(BlockStateProperties.AXIS), Block.UPDATE_ALL);
+                    damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
                 }
                 level.playSound(null, pos, Registers.WRENCH_SOUND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             } else {
