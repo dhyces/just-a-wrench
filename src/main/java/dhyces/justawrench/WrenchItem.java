@@ -5,6 +5,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -29,12 +30,15 @@ public class WrenchItem extends Item {
         Level level = pContext.getLevel();
         BlockPos pos = pContext.getClickedPos();
         BlockState state = level.getBlockState(pos);
+        Player player = pContext.getPlayer();
         if (state.is(JustAWrench.WRENCHABLE)) {
             BlockState eventModifiedState = ForgeEventFactory.onToolUse(state, pContext, JustAWrench.WRENCH, false);
             if (eventModifiedState != null && eventModifiedState != state) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, eventModifiedState, Block.UPDATE_ALL);
-                    damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
+                    if (player != null) {
+                        pContext.getItemInHand().hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(pContext.getHand()));
+                    }
                 }
                 return InteractionResult.sidedSuccess(level.isClientSide);
             }
@@ -45,32 +49,42 @@ public class WrenchItem extends Item {
                     BlockState wrenchedState = function.wrench(pContext, state, flags);
                     if (wrenchedState != state) {
                         level.setBlock(pos, wrenchedState, flags.get());
-                        damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
+                        if (player != null) {
+                            pContext.getItemInHand().hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(pContext.getHand()));
+                        }
                     }
                 }
                 level.playSound(null, pos, Registers.WRENCH_SOUND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             } else if (state.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.cycle(BlockStateProperties.HORIZONTAL_FACING), Block.UPDATE_ALL);
-                    damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
+                    if (player != null) {
+                        pContext.getItemInHand().hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(pContext.getHand()));
+                    }
                 }
                 level.playSound(null, pos, Registers.WRENCH_SOUND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             } else if (state.hasProperty(BlockStateProperties.FACING)) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.cycle(BlockStateProperties.FACING), Block.UPDATE_ALL);
-                    damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
+                    if (player != null) {
+                        pContext.getItemInHand().hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(pContext.getHand()));
+                    }
                 }
                 level.playSound(null, pos, Registers.WRENCH_SOUND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             } else if (state.hasProperty(BlockStateProperties.ROTATION_16)) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.cycle(BlockStateProperties.ROTATION_16), Block.UPDATE_ALL);
-                    damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
+                    if (player != null) {
+                        pContext.getItemInHand().hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(pContext.getHand()));
+                    }
                 }
                 level.playSound(null, pos, Registers.WRENCH_SOUND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             } else if (state.hasProperty(BlockStateProperties.AXIS)) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.cycle(BlockStateProperties.AXIS), Block.UPDATE_ALL);
-                    damageItem(pContext.getItemInHand(), 1, pContext.getPlayer(), player -> player.broadcastBreakEvent(pContext.getHand()));
+                    if (player != null) {
+                        pContext.getItemInHand().hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(pContext.getHand()));
+                    }
                 }
                 level.playSound(null, pos, Registers.WRENCH_SOUND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             } else {
