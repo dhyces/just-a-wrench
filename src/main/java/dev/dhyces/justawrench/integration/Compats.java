@@ -1,4 +1,4 @@
-package dhyces.justawrench.integration;
+package dev.dhyces.justawrench.integration;
 
 import net.minecraftforge.fml.ModList;
 

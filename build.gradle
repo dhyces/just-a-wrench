@@ -5,7 +5,7 @@ plugins {
 }
 
 version = project.mod_version
-archivesBaseName = project.mod_id
+archivesBaseName = "${mod_id}-${mc_version}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -74,14 +74,14 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.2.4'
+    minecraft 'net.minecraftforge:forge:1.19.4-45.0.49'
 
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf("curse.maven:moonlight-499980:4393346")
-    implementation fg.deobf("curse.maven:carpeted-720848:4364928")
+//    implementation fg.deobf("curse.maven:moonlight-499980:4393346")
+//    implementation fg.deobf("curse.maven:carpeted-720848:4364928")
 }
 
 jar {

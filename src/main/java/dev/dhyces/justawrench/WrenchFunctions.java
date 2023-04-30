@@ -1,4 +1,4 @@
-package dhyces.justawrench;
+package dev.dhyces.justawrench;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMap;

@@ -1,7 +1,9 @@
-package dhyces.justawrench;
+package dev.dhyces.justawrench;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -89,7 +91,7 @@ public class WrenchItem extends Item {
                 level.playSound(null, pos, Registers.WRENCH_SOUND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             } else {
                 if (!level.isClientSide) {
-                    JustAWrench.LOGGER.debug("No wrench behavior found for %s".formatted(Registry.BLOCK.getKey(state.getBlock())));
+                    JustAWrench.LOGGER.debug("No wrench behavior found for %s".formatted(BuiltInRegistries.BLOCK.getKey(state.getBlock())));
                 }
                 level.playSound(null, pos, SoundEvents.ANVIL_PLACE, SoundSource.BLOCKS, 0.2f, 1.7f);
             }
