@@ -40,10 +40,8 @@ public class JustAWrench {
     }
 
     private void onCommonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            if (Compats.hasCarpeted()) {
-                CarpetedCompat.addCompat();
-            }
-        });
+        if (Compats.hasCarpeted()) {
+            CarpetedCompat.addCompat();
+        }
     }
 }

@@ -1,7 +1,7 @@
 package dev.dhyces.justawrench;
 
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public final class JustAWrenchClient {
@@ -9,8 +9,8 @@ public final class JustAWrenchClient {
         modBus.addListener(this::addToTabs);
     }
 
-    private void addToTabs(final CreativeModeTabEvent.BuildContents event) {
-        if (event.getTab() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+    private void addToTabs(final BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(Registers.WRENCH);
         }
     }

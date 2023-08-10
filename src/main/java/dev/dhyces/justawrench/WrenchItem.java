@@ -1,9 +1,7 @@
 package dev.dhyces.justawrench;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -21,7 +19,6 @@ import net.minecraftforge.event.ForgeEventFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class WrenchItem extends Item {
-
 
     public WrenchItem(Properties pProperties) {
         super(pProperties);
